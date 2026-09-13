@@ -1,0 +1,421 @@
+{
+  "state": "complete",
+  "summary": {
+    "off": {
+      "1.0": {
+        "psnr": {
+          "mean": 20.71517562866211,
+          "std": 0.30099396474396367
+        },
+        "ssim": {
+          "mean": 0.7757849381083535,
+          "std": 0.007463525174195576
+        },
+        "lpips_vgg_standard_m11": {
+          "mean": 0.22190457156726293,
+          "std": 0.003367776851827138
+        }
+      },
+      "0.85": {
+        "psnr": {
+          "mean": 20.908385957990372,
+          "std": 0.3170964944748315
+        },
+        "ssim": {
+          "mean": 0.7826553753444127,
+          "std": 0.007501776143618409
+        },
+        "lpips_vgg_standard_m11": {
+          "mean": 0.21676996988909583,
+          "std": 0.0036777798581089233
+        }
+      },
+      "mean_training_seconds": 140.42038984627774,
+      "max_peak_allocated_mb": 237.04345703125
+    },
+    "ordinary": {
+      "1.0": {
+        "psnr": {
+          "mean": 20.886117117745535,
+          "std": 0.053525241623638954
+        },
+        "ssim": {
+          "mean": 0.781905827068147,
+          "std": 0.0009446835038104346
+        },
+        "lpips_vgg_standard_m11": {
+          "mean": 0.21366422304085322,
+          "std": 0.0013369396659005718
+        }
+      },
+      "0.85": {
+        "psnr": {
+          "mean": 21.085242407662527,
+          "std": 0.06828328285583239
+        },
+        "ssim": {
+          "mean": 0.789252499739329,
+          "std": 0.0012324052887346488
+        },
+        "lpips_vgg_standard_m11": {
+          "mean": 0.20844595560005733,
+          "std": 0.0015879553662534506
+        }
+      },
+      "mean_training_seconds": 241.69959886496267,
+      "max_peak_allocated_mb": 290.13037109375
+    },
+    "consensus": {
+      "1.0": {
+        "psnr": {
+          "mean": 20.954714548020135,
+          "std": 0.4486459114516107
+        },
+        "ssim": {
+          "mean": 0.7837679357755752,
+          "std": 0.008054325036482221
+        },
+        "lpips_vgg_standard_m11": {
+          "mean": 0.21405397852261862,
+          "std": 0.005082712945641563
+        }
+      },
+      "0.85": {
+        "psnr": {
+          "mean": 21.156240372430712,
+          "std": 0.4742204294936412
+        },
+        "ssim": {
+          "mean": 0.7909492254257202,
+          "std": 0.008141254122724205
+        },
+        "lpips_vgg_standard_m11": {
+          "mean": 0.2092628762835548,
+          "std": 0.005424554203252939
+        }
+      },
+      "mean_training_seconds": 240.40553498299172,
+      "max_peak_allocated_mb": 298.2998046875
+    }
+  },
+  "consensus_vs": {
+    "off": {
+      "pairs": [
+        {
+          "seed": 0,
+          "lpips_delta": -0.006060578993388577,
+          "psnr_delta": -0.09056935991559811,
+          "ssim_delta": 0.006039346967424697
+        },
+        {
+          "seed": 1,
+          "lpips_delta": -0.006640759961945686,
+          "psnr_delta": 0.1951359340122778,
+          "ssim_delta": 0.007753295557839546
+        },
+        {
+          "seed": 2,
+          "lpips_delta": -0.01085044017859868,
+          "psnr_delta": 0.6140501839773975,
+          "ssim_delta": 0.010156350476401177
+        }
+      ],
+      "lpips_relative_improvement_percent": 3.5378239344945883,
+      "wins": 3
+    },
+    "ordinary": {
+      "pairs": [
+        {
+          "seed": 0,
+          "lpips_delta": 0.0014150440692901611,
+          "psnr_delta": -0.006840569632394988,
+          "ssim_delta": 0.004448464938572538
+        },
+        {
+          "seed": 1,
+          "lpips_delta": 0.003981058086667738,
+          "psnr_delta": -0.3796294076102136,
+          "ssim_delta": -0.006591277463095513
+        },
+        {
+          "seed": 2,
+          "lpips_delta": -0.004226835710661764,
+          "psnr_delta": 0.5922622680664062,
+          "ssim_delta": 0.00772913864680691
+        }
+      ],
+      "lpips_relative_improvement_percent": -0.18241494819226656,
+      "wins": 1
+    }
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "mode": "off",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/off_seed0",
+      "training_seconds": 138.90136646758765,
+      "memory": {
+        "peak_allocated_mb": 237.04345703125,
+        "peak_reserved_mb": 394.0
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.93968527657645,
+          "ssim": 0.7796173691749573,
+          "lpips_vgg_repo_01": 0.17470914657626832,
+          "lpips_vgg_standard_m11": 0.22008816472121648
+        },
+        "0.85": {
+          "psnr": 21.13960157121931,
+          "ssim": 0.7864643846239362,
+          "lpips_vgg_repo_01": 0.17012712572302138,
+          "lpips_vgg_standard_m11": 0.21513037809303828
+        }
+      }
+    },
+    {
+      "seed": 0,
+      "mode": "ordinary",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/ordinary_seed0",
+      "training_seconds": 241.0217043487355,
+      "memory": {
+        "peak_allocated_mb": 290.13037109375,
+        "peak_reserved_mb": 622.0
+      },
+      "rank": {
+        "logged_steps": 9000,
+        "zero_pairs": 0,
+        "invalid_selected_pairs": 11,
+        "mean_pairs": 4096.0,
+        "mean_raw_loss": 0.053090381499793796
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.85595648629325,
+          "ssim": 0.7812082512038094,
+          "lpips_vgg_repo_01": 0.16678044093506678,
+          "lpips_vgg_standard_m11": 0.21261254165853774
+        },
+        "0.85": {
+          "psnr": 21.03684479849679,
+          "ssim": 0.7883715885026115,
+          "lpips_vgg_repo_01": 0.1621460382427488,
+          "lpips_vgg_standard_m11": 0.20765051458563125
+        }
+      }
+    },
+    {
+      "seed": 0,
+      "mode": "consensus",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/consensus_seed0",
+      "training_seconds": 239.40639882162213,
+      "memory": {
+        "peak_allocated_mb": 298.2998046875,
+        "peak_reserved_mb": 634.0
+      },
+      "rank": {
+        "logged_steps": 9000,
+        "zero_pairs": 0,
+        "invalid_selected_pairs": 3,
+        "mean_pairs": 4096.0,
+        "mean_raw_loss": 0.044119286232110526
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.849115916660853,
+          "ssim": 0.785656716142382,
+          "lpips_vgg_repo_01": 0.1684707094516073,
+          "lpips_vgg_standard_m11": 0.2140275857278279
+        },
+        "0.85": {
+          "psnr": 21.063514164515905,
+          "ssim": 0.7932503819465637,
+          "lpips_vgg_repo_01": 0.16334476002625056,
+          "lpips_vgg_standard_m11": 0.2086905347449439
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "mode": "off",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/off_seed1",
+      "training_seconds": 134.41330746281892,
+      "memory": {
+        "peak_allocated_mb": 236.20458984375,
+        "peak_reserved_mb": 412.0
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.373151506696427,
+          "ssim": 0.7671837721552167,
+          "lpips_vgg_repo_01": 0.1792718299797603,
+          "lpips_vgg_standard_m11": 0.22579059643404825
+        },
+        "0.85": {
+          "psnr": 20.546902792794363,
+          "ssim": 0.774013272353581,
+          "lpips_vgg_repo_01": 0.17473662538187845,
+          "lpips_vgg_standard_m11": 0.22098238553319657
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "mode": "ordinary",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/ordinary_seed1",
+      "training_seconds": 239.13108493946493,
+      "memory": {
+        "peak_allocated_mb": 288.095703125,
+        "peak_reserved_mb": 642.0
+      },
+      "rank": {
+        "logged_steps": 9000,
+        "zero_pairs": 0,
+        "invalid_selected_pairs": 3,
+        "mean_pairs": 4096.0,
+        "mean_raw_loss": 0.04803998302482069
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.94791684831892,
+          "ssim": 0.7815283451761518,
+          "lpips_vgg_repo_01": 0.16973136897597993,
+          "lpips_vgg_standard_m11": 0.21516877838543483
+        },
+        "0.85": {
+          "psnr": 21.163347244262695,
+          "ssim": 0.788725061076028,
+          "lpips_vgg_repo_01": 0.16499785227434977,
+          "lpips_vgg_standard_m11": 0.2102744302579335
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "mode": "consensus",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/consensus_seed1",
+      "training_seconds": 238.4649992743507,
+      "memory": {
+        "peak_allocated_mb": 289.421875,
+        "peak_reserved_mb": 716.0
+      },
+      "rank": {
+        "logged_steps": 9000,
+        "zero_pairs": 0,
+        "invalid_selected_pairs": 9,
+        "mean_pairs": 4096.0,
+        "mean_raw_loss": 0.044682993098058635
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.568287440708705,
+          "ssim": 0.7749370677130563,
+          "lpips_vgg_repo_01": 0.17401677263634546,
+          "lpips_vgg_standard_m11": 0.21914983647210257
+        },
+        "0.85": {
+          "psnr": 20.73523167201451,
+          "ssim": 0.78190507207598,
+          "lpips_vgg_repo_01": 0.1698137159858431,
+          "lpips_vgg_standard_m11": 0.21495090850761958
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "mode": "off",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/off_seed2",
+      "training_seconds": 147.94649560842663,
+      "memory": {
+        "peak_allocated_mb": 233.77099609375,
+        "peak_reserved_mb": 402.0
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.83269010271345,
+          "ssim": 0.7805536729948861,
+          "lpips_vgg_repo_01": 0.17357164408479417,
+          "lpips_vgg_standard_m11": 0.21983495354652405
+        },
+        "0.85": {
+          "psnr": 21.03865350995745,
+          "ssim": 0.7874884690557208,
+          "lpips_vgg_repo_01": 0.168410667351314,
+          "lpips_vgg_standard_m11": 0.2141971460410527
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "mode": "ordinary",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/ordinary_seed2",
+      "training_seconds": 244.94600730668753,
+      "memory": {
+        "peak_allocated_mb": 287.44482421875,
+        "peak_reserved_mb": 526.0
+      },
+      "rank": {
+        "logged_steps": 9000,
+        "zero_pairs": 0,
+        "invalid_selected_pairs": 3,
+        "mean_pairs": 4096.0,
+        "mean_raw_loss": 0.047839139819352165
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 20.85447801862444,
+          "ssim": 0.7829808848244804,
+          "lpips_vgg_repo_01": 0.16875681706837245,
+          "lpips_vgg_standard_m11": 0.21321134907858713
+        },
+        "0.85": {
+          "psnr": 21.055535180228098,
+          "ssim": 0.7906608496393476,
+          "lpips_vgg_repo_01": 0.16350977974278585,
+          "lpips_vgg_standard_m11": 0.20741292195660727
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "mode": "consensus",
+      "steps": 10000,
+      "model": "${PROJECT_ROOT}/rank_runs/compare/consensus_seed2",
+      "training_seconds": 243.3452068530023,
+      "memory": {
+        "peak_allocated_mb": 287.580078125,
+        "peak_reserved_mb": 540.0
+      },
+      "rank": {
+        "logged_steps": 9000,
+        "zero_pairs": 0,
+        "invalid_selected_pairs": 2,
+        "mean_pairs": 4096.0,
+        "mean_raw_loss": 0.06233681063229839
+      },
+      "metrics": {
+        "1.0": {
+          "psnr": 21.446740286690847,
+          "ssim": 0.7907100234712873,
+          "lpips_vgg_repo_01": 0.1627795770764351,
+          "lpips_vgg_standard_m11": 0.20898451336792537
+        },
+        "0.85": {
+          "psnr": 21.66997528076172,
+          "ssim": 0.7976922222546169,
+          "lpips_vgg_repo_01": 0.15852991597993032,
+          "lpips_vgg_standard_m11": 0.20414718559810094
+        }
+      }
+    }
+  ],
+  "evidence": "Development comparison only; generic depth ranking and confidence supervision are existing research, candidate novelty unconfirmed"
+}

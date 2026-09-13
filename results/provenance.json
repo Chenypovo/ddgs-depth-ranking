@@ -1,0 +1,74 @@
+[
+  {
+    "file": "results/trex_dropout/report.md",
+    "original_local_artifact": "reports/comparison/RESULTS.md",
+    "original_sha256": "a1c832a2e3112e9af51a10b8a0b4b32f950bd4b16a5fccbbd5ffe227a5cb272b",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_dropout/metrics.json",
+    "original_local_artifact": "reports/comparison/comparison.json",
+    "original_sha256": "64a3c65c01bb82d285e10440dda92452aaee3dbecc62bb69c6c8b5e62127d8c0",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_corrections/report.md",
+    "original_local_artifact": "reports/corrections/RESULTS.md",
+    "original_sha256": "a736180f4e7c4e8fe9666c8a34799b442fb563ae86b9df21e64e9a53011a6b0b",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_corrections/metrics.json",
+    "original_local_artifact": "reports/corrections/summary/summary.json",
+    "original_sha256": "a1fd90f5f67e88ed317394111d74efd23253906e0917e4a375044c994151bec0",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_diagnostics/report.md",
+    "original_local_artifact": "reports/failure_analysis/RESULTS.md",
+    "original_sha256": "60ade55eed9da6dec56f783d963a85cbb22b1ef0d7fc366e43fa8c8e7bf828b0",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_diagnostics/metrics.json",
+    "original_local_artifact": "reports/failure_analysis/summary.json",
+    "original_sha256": "8d8c6ec54b51f307000534ed795cb497fda1a67958b2ddb65e247b0322333637",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/depth_reliability/report.md",
+    "original_local_artifact": "reports/depth_reliability/RESULTS.md",
+    "original_sha256": "bcf64594a26cc53c5c6dbd1213a60efca7e69c30759e073c72ac0dc3b7d8c28b",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/depth_reliability/metrics.json",
+    "original_local_artifact": "reports/depth_reliability/summary.json",
+    "original_sha256": "3bad63cb20c2c0ddf2dbfb4ee23e664e0200f36b7be6853dd5008c795a003026",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_ranking/report.md",
+    "original_local_artifact": "reports/rank_comparison/RESULTS.md",
+    "original_sha256": "7e7e6762fbbdef0098c0cd39389138e6b60db53ccfd804b12d7c90a80e4927da",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/trex_ranking/metrics.json",
+    "original_local_artifact": "reports/rank_comparison/summary/summary.json",
+    "original_sha256": "958b56c3375c55ddb935fdcf700b8be3fd161d80bc5baa0f26b64280c17fd8e4",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/fern_validation/report.md",
+    "original_local_artifact": "reports/fern_validation/RESULTS.md",
+    "original_sha256": "3b364040d489883ae0eee41f1ba0bdf486415757edd3a75ae4342b7f98c20548",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  },
+  {
+    "file": "results/fern_validation/metrics.json",
+    "original_local_artifact": "reports/fern_validation/summary/summary.json",
+    "original_sha256": "99108fc05e6c8e5b9ed505897d6d2996a590266bfcd04b324d99de8c929606d3",
+    "export_notes": "Only machine paths/identifiers normalised; numerical results unchanged. Detailed reports retain historical local artifact names; large backups are not in Git."
+  }
+]

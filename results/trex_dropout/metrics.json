@@ -1,0 +1,100 @@
+{
+  "state": "complete",
+  "runs": [
+    {
+      "variant": "independent",
+      "seed": 0,
+      "metrics": {
+        "psnr": 20.90976878574916,
+        "ssim": 0.7788018499101911,
+        "lpips_vgg_repo_01": 0.16993197160107748,
+        "lpips_vgg_standard_m11": 0.21509735711983272
+      },
+      "training_seconds": 142.92663598060608,
+      "model": "${PROJECT_ROOT}/runs/trex_baseline_seed0"
+    },
+    {
+      "variant": "spatial_stratified",
+      "seed": 0,
+      "metrics": {
+        "psnr": 20.612739290509904,
+        "ssim": 0.7753119724137443,
+        "lpips_vgg_repo_01": 0.1745240411588124,
+        "lpips_vgg_standard_m11": 0.22061646623270853
+      },
+      "training_seconds": 143.6447970867157,
+      "model": "${PROJECT_ROOT}/runs/trex_spatial_stratified_seed0"
+    },
+    {
+      "variant": "independent",
+      "seed": 1,
+      "metrics": {
+        "psnr": 20.839668001447404,
+        "ssim": 0.7816329853875297,
+        "lpips_vgg_repo_01": 0.17468658834695816,
+        "lpips_vgg_standard_m11": 0.2201110805783953
+      },
+      "training_seconds": 144.8886706829071,
+      "model": "${PROJECT_ROOT}/runs/trex_independent_seed1"
+    },
+    {
+      "variant": "spatial_stratified",
+      "seed": 1,
+      "metrics": {
+        "psnr": 20.3731198992048,
+        "ssim": 0.7699691823550633,
+        "lpips_vgg_repo_01": 0.18254217292581285,
+        "lpips_vgg_standard_m11": 0.22732455815587724
+      },
+      "training_seconds": 143.15634679794312,
+      "model": "${PROJECT_ROOT}/runs/trex_spatial_stratified_seed1"
+    },
+    {
+      "variant": "independent",
+      "seed": 2,
+      "metrics": {
+        "psnr": 20.679383414132253,
+        "ssim": 0.7734749061720712,
+        "lpips_vgg_repo_01": 0.1746475441115243,
+        "lpips_vgg_standard_m11": 0.2203431533915656
+      },
+      "training_seconds": 142.42456316947937,
+      "model": "${PROJECT_ROOT}/runs/trex_independent_seed2"
+    },
+    {
+      "variant": "spatial_stratified",
+      "seed": 2,
+      "metrics": {
+        "psnr": 20.78876304626465,
+        "ssim": 0.7785729765892029,
+        "lpips_vgg_repo_01": 0.17676253403936112,
+        "lpips_vgg_standard_m11": 0.22221859012331283
+      },
+      "training_seconds": 141.41503405570984,
+      "model": "${PROJECT_ROOT}/runs/trex_spatial_stratified_seed2"
+    }
+  ],
+  "means": {
+    "independent": {
+      "psnr": 20.809606733776274,
+      "ssim": 0.777969913823264,
+      "lpips_vgg_repo_01": 0.17308870135318666,
+      "lpips_vgg_standard_m11": 0.2185171970299312
+    },
+    "spatial_stratified": {
+      "psnr": 20.59154074532645,
+      "ssim": 0.7746180437860035,
+      "lpips_vgg_repo_01": 0.1779429160413288,
+      "lpips_vgg_standard_m11": 0.2233865381706329
+    }
+  },
+  "candidate_minus_baseline": {
+    "psnr": -0.2180659884498226,
+    "ssim": -0.0033518700372604515,
+    "lpips_vgg_repo_01": 0.00485421468814215,
+    "lpips_vgg_standard_m11": 0.0048693411407016995
+  },
+  "primary": "lpips_vgg_standard_m11",
+  "lower_is_better": true,
+  "evidence": "Single scene, three paired seeds; exploratory mechanism comparison, novelty unverified"
+}

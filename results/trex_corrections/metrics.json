@@ -1,0 +1,278 @@
+{
+  "evidence": "Single development scene, three paired seeds, engineering corrections only",
+  "arms": {
+    "baseline": {
+      "mean": {
+        "psnr": 20.76205044700986,
+        "ssim": 0.7783889685358321,
+        "lpips_vgg_standard_m11": 0.22164511254855565,
+        "lpips_vgg_repo_01": 0.17536297405049917
+      },
+      "std": {
+        "psnr": 0.38458393226450255,
+        "ssim": 0.009251242532457793,
+        "lpips_vgg_standard_m11": 0.010466379394234657,
+        "lpips_vgg_repo_01": 0.00983338996370427
+      },
+      "training_seconds_mean": 133.32084917059788,
+      "runs": [
+        {
+          "depth": "upstream",
+          "density": "upstream",
+          "seed": 0,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_upstream_density_upstream_seed0",
+          "training_seconds": 126.34955772478133,
+          "diagnostics": {
+            "density_length_fallback": 8184,
+            "density_topology_stale": 9381,
+            "density_refreshed_before_render": 0,
+            "sampled_z_band_disagreement_mean": 0.07434915776054064
+          },
+          "metrics": {
+            "psnr": 21.1990419115339,
+            "ssim": 0.7886245335851397,
+            "lpips_vgg_repo_01": 0.16796147291149413,
+            "lpips_vgg_standard_m11": 0.21344807531152452
+          }
+        },
+        {
+          "depth": "upstream",
+          "density": "upstream",
+          "seed": 1,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_upstream_density_upstream_seed1",
+          "training_seconds": 136.28684373758733,
+          "diagnostics": {
+            "density_length_fallback": 8184,
+            "density_topology_stale": 9381,
+            "density_refreshed_before_render": 0,
+            "sampled_z_band_disagreement_mean": 0.0844485087475429
+          },
+          "metrics": {
+            "psnr": 20.61199188232422,
+            "ssim": 0.7759189009666443,
+            "lpips_vgg_repo_01": 0.17160658751215255,
+            "lpips_vgg_standard_m11": 0.21805262778486525
+          }
+        },
+        {
+          "depth": "upstream",
+          "density": "upstream",
+          "seed": 2,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_upstream_density_upstream_seed2",
+          "training_seconds": 137.326146049425,
+          "diagnostics": {
+            "density_length_fallback": 8184,
+            "density_topology_stale": 9381,
+            "density_refreshed_before_render": 0,
+            "sampled_z_band_disagreement_mean": 0.09135861773975193
+          },
+          "metrics": {
+            "psnr": 20.475117547171457,
+            "ssim": 0.770623471055712,
+            "lpips_vgg_repo_01": 0.1865208617278508,
+            "lpips_vgg_standard_m11": 0.23343463454927718
+          }
+        }
+      ]
+    },
+    "depth_only": {
+      "mean": {
+        "psnr": 20.813112531389507,
+        "ssim": 0.7763555759475345,
+        "lpips_vgg_standard_m11": 0.22077750308173044,
+        "lpips_vgg_repo_01": 0.1749390218229521
+      },
+      "std": {
+        "psnr": 0.1592847480988977,
+        "ssim": 0.0028733746043268452,
+        "lpips_vgg_standard_m11": 0.002944998618564198,
+        "lpips_vgg_repo_01": 0.0034396125651501024
+      },
+      "training_seconds_mean": 129.89414906067154,
+      "runs": [
+        {
+          "depth": "camera_z",
+          "density": "upstream",
+          "seed": 0,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_camera_z_density_upstream_seed0",
+          "training_seconds": 133.91460397653282,
+          "diagnostics": {
+            "density_length_fallback": 8184,
+            "density_topology_stale": 9381,
+            "density_refreshed_before_render": 0,
+            "sampled_z_band_disagreement_mean": 0.0809773568684856
+          },
+          "metrics": {
+            "psnr": 20.97226824079241,
+            "ssim": 0.7796698978969029,
+            "lpips_vgg_repo_01": 0.17172095392431533,
+            "lpips_vgg_standard_m11": 0.21782747549670084
+          }
+        },
+        {
+          "depth": "camera_z",
+          "density": "upstream",
+          "seed": 1,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_camera_z_density_upstream_seed1",
+          "training_seconds": 136.5166610777378,
+          "diagnostics": {
+            "density_length_fallback": 8184,
+            "density_topology_stale": 9381,
+            "density_refreshed_before_render": 0,
+            "sampled_z_band_disagreement_mean": 0.08477275461579363
+          },
+          "metrics": {
+            "psnr": 20.6536990574428,
+            "ssim": 0.7745652454239982,
+            "lpips_vgg_repo_01": 0.17856398331267492,
+            "lpips_vgg_standard_m11": 0.22371744683810643
+          }
+        },
+        {
+          "depth": "camera_z",
+          "density": "upstream",
+          "seed": 2,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_camera_z_density_upstream_seed2",
+          "training_seconds": 119.25118212774396,
+          "diagnostics": {
+            "density_length_fallback": 8184,
+            "density_topology_stale": 9381,
+            "density_refreshed_before_render": 0,
+            "sampled_z_band_disagreement_mean": 0.08592135994695127
+          },
+          "metrics": {
+            "psnr": 20.813370295933314,
+            "ssim": 0.7748315845217023,
+            "lpips_vgg_repo_01": 0.174532128231866,
+            "lpips_vgg_standard_m11": 0.22078758691038405
+          }
+        }
+      ],
+      "paired_deltas": [
+        {
+          "psnr": -0.22677367074149046,
+          "ssim": -0.008954635688236845,
+          "lpips_vgg_standard_m11": 0.004379400185176324,
+          "lpips_vgg_repo_01": 0.0037594810128211975
+        },
+        {
+          "psnr": 0.041707175118581574,
+          "ssim": -0.0013536555426461039,
+          "lpips_vgg_standard_m11": 0.005664819053241177,
+          "lpips_vgg_repo_01": 0.006957395800522376
+        },
+        {
+          "psnr": 0.33825274876185674,
+          "ssim": 0.00420811346599026,
+          "lpips_vgg_standard_m11": -0.012647047638893127,
+          "lpips_vgg_repo_01": -0.011988733495984782
+        }
+      ],
+      "primary_relative_change_percent": -0.3914408293731908
+    },
+    "density_only": {
+      "mean": {
+        "psnr": 20.682352701822914,
+        "ssim": 0.768867035706838,
+        "lpips_vgg_standard_m11": 0.23101093300751277,
+        "lpips_vgg_repo_01": 0.18423376622654142
+      },
+      "std": {
+        "psnr": 0.11356441889923374,
+        "ssim": 0.0058407613022513,
+        "lpips_vgg_standard_m11": 0.006844136058379217,
+        "lpips_vgg_repo_01": 0.006342277596016787
+      },
+      "training_seconds_mean": 165.33263179070005,
+      "runs": [
+        {
+          "depth": "upstream",
+          "density": "refresh",
+          "seed": 0,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_upstream_density_refresh_seed0",
+          "training_seconds": 168.04357015527785,
+          "diagnostics": {
+            "density_length_fallback": 0,
+            "density_topology_stale": 0,
+            "density_refreshed_before_render": 94,
+            "sampled_z_band_disagreement_mean": 0.0722916677283744
+          },
+          "metrics": {
+            "psnr": 20.79156276157924,
+            "ssim": 0.7714672940117973,
+            "lpips_vgg_repo_01": 0.17985909751483373,
+            "lpips_vgg_standard_m11": 0.22678390783923014
+          }
+        },
+        {
+          "depth": "upstream",
+          "density": "refresh",
+          "seed": 1,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_upstream_density_refresh_seed1",
+          "training_seconds": 161.5135505227372,
+          "diagnostics": {
+            "density_length_fallback": 0,
+            "density_topology_stale": 0,
+            "density_refreshed_before_render": 94,
+            "sampled_z_band_disagreement_mean": 0.08378068231977523
+          },
+          "metrics": {
+            "psnr": 20.69061061314174,
+            "ssim": 0.7729561073439462,
+            "lpips_vgg_repo_01": 0.18133472757680075,
+            "lpips_vgg_standard_m11": 0.22734159231185913
+          }
+        },
+        {
+          "depth": "upstream",
+          "density": "refresh",
+          "seed": 2,
+          "steps": 10000,
+          "model": "${PROJECT_ROOT}/correction_runs/compare/depth_upstream_density_refresh_seed2",
+          "training_seconds": 166.44077469408512,
+          "diagnostics": {
+            "density_length_fallback": 0,
+            "density_topology_stale": 0,
+            "density_refreshed_before_render": 94,
+            "sampled_z_band_disagreement_mean": 0.08765902978678544
+          },
+          "metrics": {
+            "psnr": 20.564884730747767,
+            "ssim": 0.7621777057647705,
+            "lpips_vgg_repo_01": 0.1915074735879898,
+            "lpips_vgg_standard_m11": 0.23890729887144907
+          }
+        }
+      ],
+      "paired_deltas": [
+        {
+          "psnr": -0.4074791499546606,
+          "ssim": -0.017157239573342475,
+          "lpips_vgg_standard_m11": 0.013335832527705621,
+          "lpips_vgg_repo_01": 0.011897624603339596
+        },
+        {
+          "psnr": 0.0786187308175208,
+          "ssim": -0.0029627936226981344,
+          "lpips_vgg_standard_m11": 0.009288964526993876,
+          "lpips_vgg_repo_01": 0.0097281400646482
+        },
+        {
+          "psnr": 0.08976718357630986,
+          "ssim": -0.008445765290941543,
+          "lpips_vgg_standard_m11": 0.0054726643221718885,
+          "lpips_vgg_repo_01": 0.0049866118601390175
+        }
+      ],
+      "primary_relative_change_percent": 4.2255930443335865
+    }
+  }
+}
