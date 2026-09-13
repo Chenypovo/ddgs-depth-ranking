@@ -1,0 +1,13 @@
+{
+  "upstream": "https://github.com/Insta360-Research-Team/DDGS.git",
+  "commit": "9adb7355092e8bd2b302e16b194c693fa51004d8",
+  "patched_files": {
+    "gaussian_renderer/__init__.py": "594317b6e8a84849a21dea30ed965e77fd71099af6677af348f4d4913ccee1b1",
+    "scene/gaussian_model.py": "04f916c40a2a27dcf4c7a8f7bb3e677e5238c04c419b20fc067fe48497940838",
+    "utils/general_utils.py": "985a50e3c0fd89fbccaa63b07ff390520173562717df0638215bfdb644b7cf02",
+    "utils/spatial_dropout.py": "6b1199d9acf3194304a7f888217786adedb5ec737e05307d514c27acedd68193",
+    "utils/dropout_controls.py": "d1a95a1f2d8cf570f583d9961965f07f24f9ecf9625172ec9bf2c924e1fb6fa8",
+    "submodules/simple-knn/simple_knn.cu": "d4d2e3885d3b6d1b0765f30d8d88d771cab4c6c31c2803c71ce232e58a03499c"
+  },
+  "train_sha256": "b9b31c62b693e990e7cbcdd39712390a3f8c68ab2112e13110085d4d025afe9e"
+}

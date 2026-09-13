@@ -1,0 +1,16 @@
+# Keep the research repository small; raw experiment archives stay local.
+/*
+!/.gitignore
+!/README.md
+!/THIRD_PARTY.md
+!/*.py
+!/*.sh
+!/docs/
+!/patches/
+!/results/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+*.pem
+*.key

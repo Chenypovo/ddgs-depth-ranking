@@ -1,0 +1,222 @@
+--- a/gaussian_renderer/__init__.py
++++ b/gaussian_renderer/__init__.py
+@@ -11,6 +11,7 @@
+ 
+ import torch
+ import math
++import os
+ from diff_gaussian_rasterization import GaussianRasterizationSettings, GaussianRasterizer
+ from scene.gaussian_model import GaussianModel
+ from utils.sh_utils import eval_sh
+@@ -88,10 +89,12 @@
+     if is_train:
+         gaussian_positions = pc.get_xyz  
+         # camera_depths = torch.norm(gaussian_positions - viewpoint_camera.camera_center, dim=1) + 1e-6 
+-        ones = torch.ones((gaussian_positions.shape[0], 1), device=gaussian_positions.device)
+-        gaussian_positions_homo = torch.cat([gaussian_positions, ones], dim=1)  # [N, 4]
+-        camera_coordinates = torch.matmul(gaussian_positions_homo, viewpoint_camera.world_view_transform.T)  # [N, 4]
+-        camera_depths = camera_coordinates[:, 2] 
++        from utils.dropout_controls import camera_depths as compute_depths, ensure_density, log_diagnostics
++        depth_mode = os.environ.get('DDGS_DEPTH_MODE', 'upstream')
++        density_mode = os.environ.get('DDGS_DENSITY_MODE', 'upstream')
++        refreshed = ensure_density(pc, density_mode)
++        camera_depths = compute_depths(gaussian_positions, viewpoint_camera, depth_mode)
++        log_diagnostics(pc, viewpoint_camera, iteration, depth_mode, density_mode, refreshed)
+         depth_min, depth_max = camera_depths.min(), camera_depths.max()
+         depth_score = (1.0 - (camera_depths - depth_min) / (depth_max - depth_min + 1e-6)).float() 
+         
+@@ -121,7 +124,11 @@
+                     far_field.float() * combined_score * drop_rate * 0.3)
+         
+         keep_prob = 1.0 - drop_prob
+-        mask = (torch.rand_like(keep_prob) < keep_prob).float()
++        if os.environ.get('DDGS_DROPOUT', 'independent') == 'spatial_stratified':
++            from utils.spatial_dropout import spatial_keep_mask
++            mask = spatial_keep_mask(keep_prob, gaussian_positions, pc, iteration)
++        else:
++            mask = (torch.rand_like(keep_prob) < keep_prob).float()
+         opacity = opacity * mask[:, None]
+ 
+ 
+--- a/scene/gaussian_model.py
++++ b/scene/gaussian_model.py
+@@ -154,6 +154,7 @@
+         density = -knn.kneighbors()[0].mean(axis=1)
+         density = torch.tensor(density, device="cuda")
+         self.density_score = density
++        self._density_topology_version = getattr(self, '_ddgs_topology_version', 0)
+ 
+     def training_setup(self, training_args):
+         self.percent_dense = training_args.percent_dense
+@@ -298,6 +299,7 @@
+         return optimizable_tensors
+ 
+     def prune_points(self, mask):
++        old_count = len(self._xyz)
+         valid_points_mask = ~mask
+         optimizable_tensors = self._prune_optimizer(valid_points_mask)
+ 
+@@ -312,6 +314,8 @@
+ 
+         self.denom = self.denom[valid_points_mask]
+         self.max_radii2D = self.max_radii2D[valid_points_mask]
++        if len(self._xyz) != old_count:
++            self._ddgs_topology_version = getattr(self, '_ddgs_topology_version', 0) + 1
+ 
+     def cat_tensors_to_optimizer(self, tensors_dict):
+         optimizable_tensors = {}
+@@ -355,6 +359,8 @@
+         self.denom = torch.zeros((self.get_xyz.shape[0], 1), device="cuda")
+         self.max_radii2D = torch.zeros((self.get_xyz.shape[0]), device="cuda")
+         self.max_radii2D = torch.cat([self.max_radii2D, torch.zeros(self.get_xyz.shape[0]-self.max_radii2D.shape[0]).to(self.max_radii2D)])
++        if len(new_xyz):
++            self._ddgs_topology_version = getattr(self, '_ddgs_topology_version', 0) + 1
+ 
+     def densify_and_split(self, grads, grad_threshold, scene_extent, N=2):
+         n_init_points = self.get_xyz.shape[0]
+@@ -415,4 +421,3 @@
+     def add_densification_stats(self, viewspace_point_tensor, update_filter):
+         self.xyz_gradient_accum[update_filter] += torch.norm(viewspace_point_tensor.grad[update_filter,:2], dim=-1, keepdim=True)
+         self.denom[update_filter] += 1
+-
+--- a/utils/general_utils.py
++++ b/utils/general_utils.py
+@@ -127,7 +127,9 @@
+ 
+     sys.stdout = F(silent)
+ 
+-    random.seed(0)
+-    np.random.seed(0)
+-    torch.manual_seed(0)
++    import os
++    seed = int(os.environ.get('DDGS_SEED', '0'))
++    random.seed(seed)
++    np.random.seed(seed)
++    torch.manual_seed(seed)
+     torch.cuda.set_device(torch.device("cuda:0"))
+--- /dev/null
++++ b/utils/spatial_dropout.py
+@@ -0,0 +1,41 @@
++"""Experimental local stratified dropout, not an established novel method.
++
++Each point retains its original Bernoulli marginal probability. Nearby points
++share a random phase with evenly spaced offsets, reducing local count variance.
++Morton ordering approximates locality; it is not semantic object segmentation.
++"""
++import torch
++
++
++@torch.no_grad()
++def morton_order(xyz):
++    low=xyz.amin(dim=0)
++    span=(xyz.amax(dim=0)-low).clamp_min(1e-6)
++    q=((xyz-low)/span*1023).clamp(0,1023).long()
++    code=torch.zeros(len(xyz),device=xyz.device,dtype=torch.long)
++    for bit in range(10):
++        for axis in range(3):
++            code |= ((q[:,axis] >> bit) & 1) << (3*bit+axis)
++    return torch.argsort(code,stable=True)
++
++
++@torch.no_grad()
++def stratified_keep_mask(keep_prob,order,group_size=8):
++    n=len(keep_prob)
++    rank=torch.arange(n,device=keep_prob.device)
++    group=rank//group_size
++    sizes=(n-group*group_size).clamp(max=group_size)
++    phase=torch.rand((int((n+group_size-1)//group_size),),device=keep_prob.device)
++    u=(phase[group]+(rank%group_size)/sizes)%1
++    mask=torch.empty_like(keep_prob)
++    mask[order]=(u<keep_prob[order]).to(keep_prob.dtype)
++    return mask
++
++
++@torch.no_grad()
++def spatial_keep_mask(keep_prob,xyz,owner,iteration):
++    cache=getattr(owner,'_spatial_dropout_cache',None)
++    if cache is None or cache[0]!=len(xyz) or iteration-cache[1]>=500:
++        cache=(len(xyz),iteration,morton_order(xyz.detach()))
++        owner._spatial_dropout_cache=cache
++    return stratified_keep_mask(keep_prob,cache[2])
+--- /dev/null
++++ b/utils/dropout_controls.py
+@@ -0,0 +1,62 @@
++"""Isolated implementation corrections and opt-in training diagnostics.
++
++Defaults preserve upstream depth/density behaviour. Corrections are not a new
++research method. No random draws are made here.
++"""
++import json
++import os
++from pathlib import Path
++
++import torch
++
++
++def camera_depths(xyz, camera, mode):
++    if mode == 'euclidean':
++        return torch.linalg.vector_norm(xyz-camera.camera_center, dim=1)
++    ones = torch.ones((xyz.shape[0], 1), device=xyz.device)
++    homogeneous = torch.cat([xyz, ones], dim=1)
++    if mode == 'upstream':
++        return (homogeneous @ camera.world_view_transform.T)[:, 2]
++    if mode == 'camera_z':
++        return (homogeneous @ camera.world_view_transform)[:, 2]
++    raise ValueError(f'Unknown DDGS_DEPTH_MODE: {mode}')
++
++
++def ensure_density(owner, mode):
++    if mode not in ('upstream', 'refresh'):
++        raise ValueError(f'Unknown DDGS_DENSITY_MODE: {mode}')
++    dirty = (getattr(owner, '_density_topology_version', -1) !=
++             getattr(owner, '_ddgs_topology_version', 0))
++    dirty = dirty or owner.density_score.numel() != len(owner.get_xyz)
++    if mode == 'refresh' and dirty:
++        owner.update_density_score()
++        return True
++    return False
++
++
++@torch.no_grad()
++def log_diagnostics(owner, camera, iteration, depth_mode, density_mode, refreshed):
++    path = os.environ.get('DDGS_DIAGNOSTICS')
++    if not path:
++        return
++    row = {'iteration': int(iteration), 'camera': camera.image_name,
++           'points': len(owner.get_xyz), 'density_entries': owner.density_score.numel(),
++           'topology_version': getattr(owner, '_ddgs_topology_version', 0),
++           'density_version': getattr(owner, '_density_topology_version', -1),
++           'density_refreshed_before_render': refreshed,
++           'depth_mode': depth_mode, 'density_mode': density_mode}
++    row['density_length_fallback'] = row['density_entries'] < row['points']
++    row['density_topology_stale'] = row['topology_version'] != row['density_version']
++    if iteration == 1 or iteration % 100 == 1 or iteration % 500 == 0:
++        depths = {mode: camera_depths(owner.get_xyz, camera, mode)
++                  for mode in ('upstream', 'camera_z', 'euclidean')}
++        def band(z):
++            s = z.sort().values
++            return (z>s[int(len(s)*.33)]).int()+(z>s[int(len(s)*.67)]).int()
++        a = band(depths['upstream'])
++        row['depth_band_disagreement_z'] = float((a!=band(depths['camera_z'])).float().mean())
++        row['depth_band_disagreement_euclidean'] = float((a!=band(depths['euclidean'])).float().mean())
++    if not hasattr(owner, '_ddgs_diagnostic_file'):
++        Path(path).parent.mkdir(parents=True, exist_ok=True)
++        owner._ddgs_diagnostic_file = open(path, 'x', buffering=1)
++    owner._ddgs_diagnostic_file.write(json.dumps(row)+'\n')
+--- a/submodules/simple-knn/simple_knn.cu
++++ b/submodules/simple-knn/simple_knn.cu
+@@ -17,6 +17,7 @@
+ #include <cub/cub.cuh>
+ #include <cub/device/device_radix_sort.cuh>
+ #include <vector>
++#include <cfloat>
+ #include <cuda_runtime_api.h>
+ #include <thrust/device_vector.h>
+ #include <thrust/sequence.h>
+@@ -218,4 +219,4 @@
+ 	boxMeanDist << <num_boxes, BOX_SIZE >> > (P, points, indices_sorted.data().get(), boxes.data().get(), meanDists);
+ 
+ 	cudaFree(result);
+-}
+\ No newline at end of file
++}

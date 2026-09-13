@@ -1,0 +1,6 @@
+{
+  "model": "Depth Anything V2 Small / vits",
+  "checkpoint_sha256": "715fade13be8f229f8a70cc02066f656f2423a59effd0579197bbf57860e1378",
+  "source": "https://github.com/DepthAnything/Depth-Anything-V2",
+  "source_commit": "not recorded in local experiment artifacts"
+}
