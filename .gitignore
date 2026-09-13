@@ -3,8 +3,8 @@
 !/.gitignore
 !/README.md
 !/THIRD_PARTY.md
-!/*.py
-!/*.sh
+!/scripts/
+!/methods/
 !/docs/
 !/patches/
 !/results/

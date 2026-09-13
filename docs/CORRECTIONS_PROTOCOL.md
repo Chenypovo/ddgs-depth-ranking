@@ -6,7 +6,7 @@ Status: implemented and staged, CPU checks pass; GPU integration and training pe
 
 Original remote source and results remain under `${PROJECT_ROOT}/DDGS` and existing `runs`. Corrected source is `${PROJECT_ROOT}/DDGS_corrections`, copied from the 55 MB existing source before overlaying three changed files. Package staging directory: `${PROJECT_ROOT}/correction_stage_20260913`.
 
-`evaluate_baseline.py` is unchanged, verified against the previous run SHA256. A separate `evaluate_corrections.py` accepts `DDGS_SOURCE` but keeps all metric computations, data and camera-path generation unchanged. Locally the working vendor source contains opt-in switches; defaults retain upstream behaviour. Historical audit SHA256 checks intentionally detect this later source change.
+`scripts/evaluate/evaluate_baseline.py` is unchanged, verified against the previous run SHA256. A separate `scripts/evaluate/evaluate_corrections.py` accepts `DDGS_SOURCE` but keeps all metric computations, data and camera-path generation unchanged. Locally the working vendor source contains opt-in switches; defaults retain upstream behaviour. Historical audit SHA256 checks intentionally detect this later source change.
 
 ## Factors
 
@@ -30,7 +30,7 @@ Density correction tracks topology versions through actual prune/append operatio
 
 ## Runtime sequence
 
-1. `run_corrections.py --stage diagnose --deadline <absolute ISO timestamp with timezone>` runs three 1100-step diagnostic arms, seed 0. This crosses multiple densification/cache cycles. Inspect sampled depth-band differences, cache fallback/staleness counts and refresh costs. Corrected density must have zero fallback/staleness after refresh. These short runs are integration diagnostics, not baseline scores.
+1. `scripts/train/run_corrections.py --stage diagnose --deadline <absolute ISO timestamp with timezone>` runs three 1100-step diagnostic arms, seed 0. This crosses multiple densification/cache cycles. Inspect sampled depth-band differences, cache fallback/staleness counts and refresh costs. Corrected density must have zero fallback/staleness after refresh. These short runs are integration diagnostics, not baseline scores.
 2. Only after inspecting diagnostics, launch `--stage compare` with a valid remaining deadline. Nine fresh runs: three arms × seeds 0/1/2, each complete 10000 iterations. Fresh baseline replay controls for instrumentation and source deployment. Final evaluation remains seven test views, standard VGG LPIPS primary, PSNR/SSIM secondary. Report all runs, paired differences, and time; no cherry-picking or silent retries.
 3. Original split, masks, initial points, resolution 504×378 and trex official hyperparameters remain fixed. Trex is a development scene; no held-out cross-scene research claim.
 
